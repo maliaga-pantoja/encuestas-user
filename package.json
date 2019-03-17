@@ -1,0 +1,26 @@
+{
+  "name": "bismuto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcrypt-nodejs": "0.0.30",
+    "@types/mongodb": "^3.1.22",
+    "@types/mysql": "^2.15.5",
+    "@types/node-uuid": "0.0.28",
+    "@types/redis": "^2.8.10"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "mongodb": "^3.1.13",
+    "mysql": "^2.16.0",
+    "node-uuid": "^1.4.8",
+    "redis": "^2.8.0"
+  }
+}
