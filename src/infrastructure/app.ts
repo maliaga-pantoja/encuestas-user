@@ -7,9 +7,18 @@ class App {
   async Start() {
     try {
       await this.useCase.Connect()
-      const places = await this.useCase.Find('a')
+      const user = await this.useCase.Find('a')
+      const created = await this.useCase.Create({
+        id: 'xadiqwnfioqnfowq',
+        fullname: 'miguel',
+        documentNumber: '09090909',
+        birthday: new Date(),
+        phoneNumber: '090909099',
+        status: 0,
+        dataVerified: true
+      })
       await this.useCase.Disconnect()
-      return places
+      return user
     } catch (err) {
       throw err
     }

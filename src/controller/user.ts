@@ -14,13 +14,11 @@ class Place extends Base{
     try {
       user.id = Uuid.v4()
       user.createdAt = new Date()
+      console.log(user)
       let inserted = await this.driver.Create({
-        query: `insert into ? (id, fullname, documentNumber, birthday, 
-                phoneNumber, status, dataVerified, createdAt) values (
-                  ?, ?, ?, ?, ?, ?, ?, ?
-                );`,
+        query: 'insert into users (id, fullname, documentNumber, birthday, phoneNumber, status,dataVerified, createdAt) values (?, ?, ?, ?, ?, ?, ?, ?);',
         data: [
-                this.tableName, user.id, user.fullname, user.documentNumber,
+                user.id, user.fullname, user.documentNumber,
                 user.birthday, user.phoneNumber, user.status, user.dataVerified,
                 user.createdAt
               ]
@@ -34,8 +32,8 @@ class Place extends Base{
     try {
       
       let user = await this.driver.Find({
-        query: `select * from ? where id = ?;`,
-        params: [this.tableName, userId]
+        query: `select * from users where id = ?;`,
+        params: [userId]
       })
       return user
     } catch (error) {

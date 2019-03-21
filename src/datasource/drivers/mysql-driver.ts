@@ -19,6 +19,7 @@ class MysqlDatasource implements datasource {
         host: process.env.MYSQL_HOST || 'localhost',
         user: process.env.MYSQL_USER || 'root',
         password: process.env.MYSQL_PASSWORD || 'J0h4n4',
+        database: process.env.MYSQL_DATABASE || 'db',
         insecureAuth: true
       })
     } catch (e) {
