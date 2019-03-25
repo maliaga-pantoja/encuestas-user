@@ -1,24 +1,24 @@
 import UseCase from '../use-case/app'
+import Hapi from 'hapi'
+import Router from './router'
 class App {
   private useCase: UseCase
+  private server: Hapi.Server
+  private router: Hapi.ServerRoute[]
   constructor () {
     this.useCase = new UseCase()
+    this.server = new Hapi.Server({
+      port: process.env.PORT || 3000,
+      host: '0.0.0.0'
+    })
+    
   }
   async Start() {
     try {
       await this.useCase.Connect()
-      const user = await this.useCase.Find('a')
-      const created = await this.useCase.Create({
-        id: 'xadiqwnfioqnfowq',
-        fullname: 'miguel',
-        documentNumber: '09090909',
-        birthday: new Date(),
-        phoneNumber: '090909099',
-        status: 0,
-        dataVerified: true
-      })
-      await this.useCase.Disconnect()
-      return user
+      this.router = new Router(this.useCase).list
+      this.server.route(this.router)
+      await this.server.start()
     } catch (err) {
       throw err
     }
@@ -27,8 +27,11 @@ class App {
 }
 const app = new App()
 app.Start()
-.then(r => {
-  console.log(r)
+.then(() => {
+  console.log(`
+    app running at port ${process.env.PORT}
+    in ${process.env.NODE_ENV} environment
+  `)
 })
 .catch(e => {
   console.log(e)

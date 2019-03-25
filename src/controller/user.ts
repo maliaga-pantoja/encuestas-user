@@ -14,7 +14,7 @@ class Place extends Base{
     try {
       user.id = Uuid.v4()
       user.createdAt = new Date()
-      console.log(user)
+
       let inserted = await this.driver.Create({
         query: 'insert into users (id, fullname, documentNumber, birthday, phoneNumber, status,dataVerified, createdAt) values (?, ?, ?, ?, ?, ?, ?, ?);',
         data: [
