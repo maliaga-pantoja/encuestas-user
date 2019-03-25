@@ -1,7 +1,7 @@
 import Hapi from 'hapi'
 import UseCase from '../use-case/app'
 import {model} from '../interfaces/user'
-import {userSchema} from './schema/user'
+import {userCreate, userFindById} from './schema/user'
 import Uuid from 'node-uuid'
 
 class Router {
@@ -26,19 +26,19 @@ class Router {
                 phoneNumber: req.payload.phoneNumber,
                 status: 0,
               }
-              const created = await this.useCase.Create(user)
-              return created
+              await this.useCase.Create(user)
+              return user
             } catch (e) {
               console.log(e)
               throw e
             }
           },
           validate: {
-            payload: userSchema
+            payload: userCreate
           },
           notes: 'id and createdAt are set inside handler. birthday format: YYYY/MM/DD',
           description: 'Public endpoint to create new users',
-          tags: ['user']
+          tags: ['api', 'user']
         }
       },
       {
@@ -47,15 +47,18 @@ class Router {
         options: {
           handler: async (req: any, res) => {
             try {
-              const user = await this.useCase.Find(req.query.userId)
+              const user = await this.useCase.Find(req.query.id)
               return user
             } catch (e) {
               throw e
             }
           },
+          validate: {
+            query: userFindById
+          },
           notes: 'id is required and must be generated using uuid v1',
           description: 'Public endpoint to create find user by id',
-          tags: ['user']
+          tags: ['api', 'user']
         }
       }
     ]

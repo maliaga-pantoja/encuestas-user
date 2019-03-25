@@ -27,10 +27,13 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "hapi": "^18.1.0",
+    "hapi-swagger": "^9.4.2",
+    "inert": "^5.1.2",
     "joi": "^14.3.1",
     "mongodb": "^3.1.13",
     "mysql": "^2.16.0",
     "node-uuid": "^1.4.8",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "vision": "^5.4.4"
   }
 }
