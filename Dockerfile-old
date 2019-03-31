@@ -1,0 +1,12 @@
+FROM node:10.13-alpine
+ENV NODE_ENV production
+ENV CS_ENDPOINT=$CS_ENDPOINT
+ENV CS_NAME=$CS_NAME
+ENV CS_PROFILE=$CS_PROFILE
+ENV PORT=3000
+WORKDIR /usr/src/app
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./dist/"]
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]

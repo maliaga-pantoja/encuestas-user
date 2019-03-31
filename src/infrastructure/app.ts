@@ -1,6 +1,7 @@
 import UseCase from '../use-case/app'
 import Hapi from 'hapi'
 import Router from './router'
+const Client = require('cloud-config-client')
 class App {
   private useCase: UseCase
   private server: Hapi.Server
@@ -40,7 +41,17 @@ class App {
   }
   async Start() {
     try {
-      await this.useCase.Connect()
+      console.log('config server')
+      console.log(process.env.CS_ENDPOINT)
+      console.log(process.env.CS_NAME)
+      console.log(process.env.CS_PROFILE)
+      const env = await Client.load({
+        endpoint: process.env.CS_ENDPOINT,
+        name: process.env.CS_NAME,
+	profiles: process.env.CS_PROFILE
+      })
+      console.log(env)
+      //await this.useCase.Connect()
       this.router = new Router(this.useCase).list
       this.server.route(this.router)
       await this.server.register([
